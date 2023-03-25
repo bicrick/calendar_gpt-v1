@@ -1,0 +1,191 @@
+[
+  {
+    "summary": "Grocery Shopping",
+    "location": "Walmart",
+    "description": "Buy groceries for the week",
+    "start": {
+      "dateTime": "2023-03-23T09:00:00-05:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-03-23T10:00:00-05:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Doctor's Appointment",
+    "location": "123 Main St",
+    "description": "Annual checkup with Dr. Smith",
+    "start": {
+      "dateTime": "2023-03-25T14:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-03-25T15:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Car Maintenance",
+    "location": "Auto Shop",
+    "description": "Get oil changed and tires rotated",
+    "start": {
+      "dateTime": "2023-03-27T11:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-03-27T12:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Dentist Appointment",
+    "location": "456 Elm St",
+    "description": "Annual checkup and cleaning",
+    "start": {
+      "dateTime": "2023-03-29T10:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-03-29T11:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Bank Visit",
+    "location": "First National Bank",
+    "description": "Meet with banker to discuss loan options",
+    "start": {
+      "dateTime": "2023-04-01T15:30:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-04-01T16:30:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Dry Cleaning Pickup",
+    "location": "Super Cleaners",
+    "description": "Pick up suits from dry cleaning",
+    "start": {
+      "dateTime": "2023-04-03T12:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-04-03T13:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Grocery Shopping",
+    "location": "Trader Joe's",
+    "description": "Pick up groceries for the week",
+    "start": {
+      "dateTime": "2023-04-05T18:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-04-05T19:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Lunch Meeting",
+    "location": "Cafe Rouge",
+    "description": "Meet with client to discuss project progress",
+    "start": {
+      "dateTime": "2023-04-07T12:30:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-04-07T14:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Haircut Appointment",
+    "location": "Great Clips",
+    "description": "Get a haircut and trim",
+    "start": {
+      "dateTime": "2023-04-09T11:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-04-09T12:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Spa Day at Bliss",
+    "location": "Bliss Spa",
+    "description": "Pamper yourself with a relaxing Swedish massage",
+    "start": {
+      "dateTime": "2023-05-12T14:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-05-12T15:30:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "Yoga Class at Sunrise Studio",
+    "location": "Sunrise Studio",
+    "description": "Join a group yoga class and de-stress your mind",
+    "start": {
+      "dateTime": "2023-06-01T09:30:00-05:00",
+      "timeZone": "America/Chicago"
+    },
+    "end": {
+      "dateTime": "2023-06-01T10:45:00-05:00",
+      "timeZone": "America/Chicago"
+    }
+  },
+  {
+    "summary": "Job Interview at XYZ Inc.",
+    "location": "XYZ Inc. Headquarters",
+    "description": "Interview for the role of Marketing Manager",
+    "start": {
+      "dateTime": "2023-07-15T11:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2023-07-15T12:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    }
+  },
+  {
+    "summary": "Dinner Party at Smith Residence",
+    "location": "Smith Residence",
+    "description": "Enjoy a home-cooked meal with friends",
+    "start": {
+      "dateTime": "2023-09-02T19:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-09-02T22:00:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  },
+  {
+    "summary": "David's Birthday Party",
+    "location": "The Garden Cafe",
+    "description": "Celebrate David's birthday with food, drinks, and music",
+    "start": {
+      "dateTime": "2023-05-20T18:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "end": {
+      "dateTime": "2023-05-20T22:00:00-07:00",
+      "timeZone": "America/Los_Angeles"
+    },
+    "recurrence": [],
+    "attendees": [
+      {"email": "jane.doe@example.com"},
+      {"email": "john.doe@example.com"},
+      {"email": "bob.smith@example.com"},
+      {"email": "david@example.com"}
+    ]
+  }
+]
