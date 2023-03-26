@@ -162,7 +162,26 @@ def test6():
     if 'recurrence' in event:
         print("Event Schedule: " + event['recurrence'][0])
     
-    
+#Create a test that adds an arbitrary event to the calendar:
+def test7():
+    Calendar.init()
 
-#Run the tests
-test6()
+    #Sample event object
+    sample_event = {
+    "summary": "Spa Day at Bliss",
+    "location": "Bliss Spa",
+    "description": "Pamper yourself with a relaxing Swedish massage",
+    "start": {
+      "dateTime": "2023-05-12T14:00:00-04:00",
+      "timeZone": "America/New_York"
+    },
+    "end": {
+      "dateTime": "2023-05-12T15:30:00-04:00",
+      "timeZone": "America/New_York"
+    }
+  }
+
+    #Create new event using sample event object
+    Calendar.add_event(sample_event,'token.json')
+
+test4()

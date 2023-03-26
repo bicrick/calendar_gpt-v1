@@ -19,6 +19,7 @@ import dateutil.parser
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 class Calendar:
+    @staticmethod
     def init():
         creds = None
         # The file token.json stores the user's access and refresh tokens, and is
@@ -39,12 +40,14 @@ class Calendar:
                 token.write(creds.to_json())
 
     #Function that gets events from the events.json file
+    @staticmethod
     def get_events_from_file(file_path):
         with open(file_path) as json_file:
             events = json.load(json_file)
         return events
 
     #Function that returns a list object of the events currently on the calendar
+    @staticmethod
     def get_events(token_file_path):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
@@ -64,6 +67,7 @@ class Calendar:
         return events
 
     #Function that given an event id will return the event object from the calendar.
+    @staticmethod
     def get_event_by_id(event_id,token_file_path):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
@@ -74,16 +78,24 @@ class Calendar:
         return event
     
     #Function that given an event id will delete the event from the calendar.
+    #If the event is recurring, find its parent event and delete that.
+    @staticmethod
     def delete_event_by_id(event_id,token_file_path):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
         # Call the Calendar API to list upcoming events
-        now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
+        now = datetime.datetime.utcnow().isoformat() + 'Z'
         print('Deleting the event with id: ' + event_id)
-        service.events().delete(calendarId='primary', eventId=event_id).execute()
+        event = service.events().get(calendarId='primary', eventId=event_id).execute()
+        if 'recurringEventId' in event:
+            service.events().delete(calendarId='primary', eventId=event['recurringEventId']).execute()
+        else:
+            service.events().delete(calendarId='primary', eventId=event_id).execute()
         return
 
+
     #Function that given an event object will add the event to the calendar.
+    @staticmethod
     def add_event(event,token_file_path):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
@@ -94,6 +106,7 @@ class Calendar:
         return
 
     #Function that given an event object will update the event on the calendar.
+    @staticmethod
     def update_event(event,token_file_path):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
@@ -104,6 +117,7 @@ class Calendar:
 
     
     #Function that given an event object will delete the event from the calendar.
+    @staticmethod
     def delete_event(event,token_file_path):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
@@ -112,8 +126,4 @@ class Calendar:
         print('Deleting the event: ' + event['summary'])
         service.events().delete(calendarId='primary', eventId=event['id']).execute()
         return
-    
-    
-    
-
     

@@ -85,6 +85,7 @@ class Index:
             reminder_methods = [reminder.get('method', '') for reminder in reminders]
             event_string += f'Reminders: {", ".join(reminder_methods)} '
 
+
         # Return the event string
         return event_string
 
