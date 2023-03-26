@@ -127,3 +127,46 @@ class Calendar:
         service.events().delete(calendarId='primary', eventId=event['id']).execute()
         return
     
+    #Function that given a search term, start date, and end date will return a list of events that match the search term and are within the time range.
+    @staticmethod
+    def query_calendar_events(token_file_path,search_term,start_date=None,end_date=None,max_results=None):
+        creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
+        service = build('calendar', 'v3', credentials=creds)
+        # Convert the start_date and end_date to UTC format
+        time_min = start_date.isoformat() + 'Z'
+        time_max = end_date.isoformat() + 'Z'
+
+        # Query the calendar for events within the time range and containing the search term
+        events_result = service.events().list(
+            timeMin=time_min,
+            timeMax=time_max,
+            q=search_term,
+            singleEvents=True,
+            orderBy='startTime',
+            maxResults=max_results  # Add the maxResults parameter
+        ).execute()
+
+        events = events_result.get('items', [])
+
+        return events
+
+
+    @staticmethod
+    #Creates an event object that can be added to the calendar
+    def create_event_object(summary, start_time, end_time, description=None):
+        event = {
+            'summary': summary,
+            'start': {
+                'dateTime': start_time.isoformat(),
+                'timeZone': 'UTC',
+            },
+            'end': {
+                'dateTime': end_time.isoformat(),
+                'timeZone': 'UTC',
+            },
+        }
+
+        if description:
+            event['description'] = description
+
+        return event
