@@ -133,21 +133,11 @@ class Index:
 
         payload = {'vectors': data}
 
-        # #output payload to json file
-        # with open('payload.json', 'w') as outfile:
-        #     json.dump(payload, outfile)
-        
-        # #upsert the example upsert from the rootfolder named example_upsert.json
-        # with open('example_upsert.json') as json_file:
-        #     example_upsert = json.load(json_file)
-
-        # convert it to a list of vectors
-        # get the list of vectors from the JSON object
         vectors = payload["vectors"]
 
         # upsert the vectors
         index.upsert(vectors=vectors)
-        # index.upsert(payload)
+
         return
 
     #Returns the event id of the event that is most similar to the query text
@@ -157,7 +147,7 @@ class Index:
         # Query the index for the closest event to the query text
         pinecone.init(api_key=os.getenv("PINECONE_API_KEY"),environment="us-central1-gcp")
         index = pinecone.Index("events-index")
-        results = index.query(query_embedding['embedding'], top_k=1)
+        results = index.query(query_embedding['embedding'], top_k=5)
         # Get the event ID and metadata from the query results
         event_id = results['matches'][0]['id']
         return event_id
