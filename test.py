@@ -142,9 +142,9 @@ def test6():
     #Define the query
     query = "I got ketchtup on my shirt"
     #Query the index
-    event_id = Index.query_index(query)
+    id_score_list = Index.query_index(query)
     #Get the event from the calendar
-    event = Calendar.get_event_by_id(event_id,'token.json')
+    event = Calendar.get_event_by_id(id_score_list[0][0],'token.json')
     #Print the different facets of the event, given that they are a present in the event object
     print("Event Summary: " + event['summary'])
     if 'description' in event:
@@ -173,4 +173,4 @@ def test7():
         print(event['summary'])
     return
 
-test7()
+test6()

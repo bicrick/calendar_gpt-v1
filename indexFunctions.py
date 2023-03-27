@@ -12,6 +12,7 @@ class Index:
     def get_embedding(text,model="text-embedding-ada-002"):
         text = text.replace("\n"," ")
         #add the openai api key from the .env file
+        dotenv.load_dotenv()
         openai.api_key = os.getenv("OPENAI_API_KEY")
         return openai.Embedding.create(input=text, model=model)['data'][0]
     
@@ -140,7 +141,7 @@ class Index:
 
         return
 
-    #Returns the event id of the event that is most similar to the query text
+    #Returns a list of the ids and their scores mathcing the query. The top 5 results are returned.
     def query_index(query_text):
         # Get the embedding of the query text using the same model as before
         query_embedding = Index.get_embedding(query_text)
@@ -149,5 +150,7 @@ class Index:
         index = pinecone.Index("events-index")
         results = index.query(query_embedding['embedding'], top_k=5)
         # Get the event ID and metadata from the query results
-        event_id = results['matches'][0]['id']
-        return event_id
+        # event_id = results['matches'][0]['id']
+        id_score_list = [(match['id'], match['score']) for match in results['matches']]
+
+        return id_score_list
