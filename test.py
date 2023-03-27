@@ -162,26 +162,15 @@ def test6():
     if 'recurrence' in event:
         print("Event Schedule: " + event['recurrence'][0])
     
-#Create a test that adds an arbitrary event to the calendar:
+#Create a test for the query_calendar_events function: query_calendar_events(token_file_path,search_term,start_date=None,end_date=None,max_results=None):
 def test7():
-    Calendar.init()
+    #Define the query
+    query = "Dry cleaning"
+    #Query the calendar
+    events = Calendar.query_calendar_events('token.json',query)
+    #Print the events
+    for event in events:
+        print(event['summary'])
+    return
 
-    #Sample event object
-    sample_event = {
-    "summary": "Spa Day at Bliss",
-    "location": "Bliss Spa",
-    "description": "Pamper yourself with a relaxing Swedish massage",
-    "start": {
-      "dateTime": "2023-05-12T14:00:00-04:00",
-      "timeZone": "America/New_York"
-    },
-    "end": {
-      "dateTime": "2023-05-12T15:30:00-04:00",
-      "timeZone": "America/New_York"
-    }
-  }
-
-    #Create new event using sample event object
-    Calendar.add_event(sample_event,'token.json')
-
-test4()
+test7()

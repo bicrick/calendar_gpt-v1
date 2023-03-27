@@ -133,11 +133,12 @@ class Calendar:
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
         # Convert the start_date and end_date to UTC format
-        time_min = start_date.isoformat() + 'Z'
-        time_max = end_date.isoformat() + 'Z'
+        time_min = start_date
+        time_max = end_date
 
         # Query the calendar for events within the time range and containing the search term
         events_result = service.events().list(
+            calendarId='primary',
             timeMin=time_min,
             timeMax=time_max,
             q=search_term,
@@ -157,11 +158,11 @@ class Calendar:
         event = {
             'summary': summary,
             'start': {
-                'dateTime': start_time.isoformat(),
+                'dateTime': end_time,
                 'timeZone': 'UTC',
             },
             'end': {
-                'dateTime': end_time.isoformat(),
+                'dateTime': end_time,
                 'timeZone': 'UTC',
             },
         }
