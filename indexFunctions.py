@@ -142,15 +142,29 @@ class Index:
         return
 
     #Returns a list of the ids and their scores mathcing the query. The top 5 results are returned.
-    def query_index(query_text):
+    def query_index(query_text, event_ids=None):
         # Get the embedding of the query text using the same model as before
         query_embedding = Index.get_embedding(query_text)
         # Query the index for the closest event to the query text
         pinecone.init(api_key=os.getenv("PINECONE_API_KEY"),environment="us-central1-gcp")
         index = pinecone.Index("events-index")
-        results = index.query(query_embedding['embedding'], top_k=5)
+        results = index.query(query_embedding['embedding'], top_k=len(event_ids) if event_ids else 5)
         # Get the event ID and metadata from the query results
-        # event_id = results['matches'][0]['id']
-        id_score_list = [(match['id'], match['score']) for match in results['matches']]
+        if event_ids:
+            id_score_list = [
+                (match['id'], match['score'])
+                for match in results['matches']
+                if match['id'] in event_ids
+            ]
+        else:
+            id_score_list = [(match['id'], match['score']) for match in results['matches']]
+
 
         return id_score_list
+    
+    def delete_all_vectors():
+        #load the pinecone api key from the .env file
+        dotenv.load_dotenv()
+        pinecone.init(api_key=os.getenv("PINECONE_API_KEY"),environment="us-central1-gcp")
+        index = pinecone.Index("events-index")
+        index.delete(deleteAll=True)

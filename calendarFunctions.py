@@ -171,3 +171,25 @@ class Calendar:
             event['description'] = description
 
         return event
+    
+    @staticmethod
+    #Get events within a date range
+    def get_events_in_date_range(token_file_path,start_date,end_date):
+        creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
+        service = build('calendar', 'v3', credentials=creds)
+        # Convert the start_date and end_date to UTC format
+        time_min = start_date
+        time_max = end_date
+
+        # Query the calendar for events within the time range and containing the search term
+        events_result = service.events().list(
+            calendarId='primary',
+            timeMin=time_min,
+            timeMax=time_max,
+            singleEvents=True,
+            orderBy='startTime',
+        ).execute()
+
+        events = events_result.get('items', [])
+
+        return events

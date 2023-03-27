@@ -1,31 +1,5 @@
 [
   {
-    "summary": "Grocery Shopping",
-    "location": "Walmart",
-    "description": "Buy groceries for the week",
-    "start": {
-      "dateTime": "2023-03-23T09:00:00-05:00",
-      "timeZone": "America/New_York"
-    },
-    "end": {
-      "dateTime": "2023-03-23T10:00:00-05:00",
-      "timeZone": "America/New_York"
-    }
-  },
-  {
-    "summary": "Doctor's Appointment",
-    "location": "123 Main St",
-    "description": "Annual checkup with Dr. Smith",
-    "start": {
-      "dateTime": "2023-03-25T14:00:00-04:00",
-      "timeZone": "America/New_York"
-    },
-    "end": {
-      "dateTime": "2023-03-25T15:00:00-04:00",
-      "timeZone": "America/New_York"
-    }
-  },
-  {
     "summary": "Car Maintenance",
     "location": "Auto Shop",
     "description": "Get oil changed and tires rotated",
@@ -187,5 +161,213 @@
       {"email": "bob.smith@example.com"},
       {"email": "david@example.com"}
     ]
+  },
+{
+  "summary": "Library Visit",
+  "location": "Public Library",
+  "description": "Return books and find new ones to read",
+  "start": {
+    "dateTime": "2023-03-30T16:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-03-30T17:00:00-04:00",
+    "timeZone": "America/New_York"
   }
+},
+{
+  "summary": "Gym Session",
+  "location": "Fitness Center",
+  "description": "Cardio and strength training workout",
+  "start": {
+    "dateTime": "2023-04-02T18:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-02T19:30:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Volunteer at Animal Shelter",
+  "location": "City Animal Shelter",
+  "description": "Help care for and socialize shelter animals",
+  "start": {
+    "dateTime": "2023-04-10T15:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-10T18:00:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Visit Farmer's Market",
+  "location": "Downtown Farmer's Market",
+  "description": "Buy fresh produce and support local farmers",
+  "start": {
+    "dateTime": "2023-04-08T09:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-08T11:00:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Book Club Meeting",
+  "location": "Sarah's House",
+  "description": "Discuss the latest book and enjoy snacks",
+  "start": {
+    "dateTime": "2023-04-12T19:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-12T21:00:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Cooking Class",
+  "location": "Local Culinary School",
+  "description": "Learn new cooking techniques and recipes",
+  "start": {
+    "dateTime": "2023-04-15T14:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-15T17:00:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Art Gallery Opening",
+  "location": "Local Art Gallery",
+  "description": "Attend the opening night of a new art exhibit",
+  "start": {
+    "dateTime": "2023-04-22T18:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-22T20:00:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Networking Event",
+  "location": "City Convention Center",
+  "description": "Meet professionals in your industry and expand your network",
+  "start": {
+    "dateTime": "2023-04-27T17:30:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-04-27T19:30:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Photography Workshop",
+  "location": "Local Photography Studio",
+  "description": "Learn advanced photography techniques and improve your skills",
+  "start": {
+    "dateTime": "2023-05-03T10:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-05-03T12:30:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Home Organization Day",
+  "location": "Home",
+  "description": "Spend a day decluttering and organizing your living space",
+  "start": {
+    "dateTime": "2023-05-07T10:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-05-07T16:00:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Salsa Dancing Class",
+  "location": "Dance Studio",
+  "description": "Learn salsa dancing and have fun with friends",
+  "start": {
+    "dateTime": "2023-05-11T19:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-05-11T20:30:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Outdoor Movie Night",
+  "location": "Community Park",
+  "description": "Enjoy a movie under the stars with family and friends",
+  "start": {
+    "dateTime": "2023-05-19T20:00:00-04:00",
+    "timeZone": "America/New_York"
+  },
+  "end": {
+    "dateTime": "2023-05-19T22:30:00-04:00",
+    "timeZone": "America/New_York"
+  }
+},
+{
+  "summary": "Board Game Night",
+  "location": "Community Center",
+  "description": "Join us for a fun evening of board games with friends and neighbors.",
+  "start": {
+    "dateTime": "2023-04-08T19:00:00-05:00",
+    "timeZone": "America/Chicago"
+  },
+  "end": {
+    "dateTime": "2023-04-08T22:00:00-05:00",
+    "timeZone": "America/Chicago"
+  }
+},
+{
+  "summary": "Yoga Class",
+  "location": "Local Park",
+  "description": "Relax and unwind with a calming yoga session outdoors.",
+  "start": {
+    "dateTime": "2023-04-10T09:00:00-05:00",
+    "timeZone": "America/Chicago"
+  },
+  "end": {
+    "dateTime": "2023-04-10T10:00:00-05:00",
+    "timeZone": "America/Chicago"
+  }
+},
+{
+  "summary": "Coding Workshop",
+  "location": "Library",
+  "description": "Learn the basics of Python programming in this hands-on workshop.",
+  "start": {
+    "dateTime": "2023-04-15T14:00:00-05:00",
+    "timeZone": "America/Chicago"
+  },
+  "end": {
+    "dateTime": "2023-04-15T16:00:00-05:00",
+    "timeZone": "America/Chicago"
+  }
+},
+{
+  "summary": "Book Club Meeting",
+  "location": "Cafe",
+  "description": "Join our monthly book club meeting to discuss this month's selection.",
+  "start": {
+    "dateTime": "2023-04-20T18:30:00-05:00",
+    "timeZone": "America/Chicago"
+  },
+  "end": {
+    "dateTime": "2023-04-20T20:00:00-05:00",
+    "timeZone": "America/Chicago"
+  }
+}
 ]

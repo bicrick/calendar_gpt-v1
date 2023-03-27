@@ -45,6 +45,8 @@ Add an event on 3/29/2023 at 10AM that I will be going to the Doctors office for
 #Define a string that outlines the current day of the week, date, time, and timezone
 realtimedate = "Today is " + current_day + " " + current_datetime.strftime("%B") + " " + current_datetime.strftime("%d") + " " + current_datetime.strftime("%Y") + " " + current_datetime.strftime("%H") + ":" + current_datetime.strftime("%M") + " " + current_datetime.strftime("%Z")
 
+print(realtimedate)
+
 # Define the instructions for the agent
 instruction = '''
 You are a google calendar assistant. You have been provided an authentication token at the root folder with name 'token.json'. 
