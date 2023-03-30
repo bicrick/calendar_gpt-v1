@@ -1,10 +1,9 @@
 import openai
 import pinecone
 import dotenv
-import datetime
-import pytz
+from datetime import datetime, time
+from dateutil import tz, parser
 import dateparser
-from dateparser.search import search_dates
 
 import os
 import re
@@ -12,63 +11,68 @@ import re
 from indexFunctions import Index
 from calendarFunctions import Calendar
 
-def process_query(query_text):
+def process_time(query_text):
     #Create an openai object
 
     #Get the current date and time relative to the timezone
-    tz = pytz.timezone('America/Chicago')
-    current_datetime = datetime.datetime.now(tz)
+    timezone = tz.tzlocal()
+    current_datetime = datetime.now(timezone)
     print(current_datetime)
 
     #Get the current day of the week
     current_day = current_datetime.strftime("%A")
     realtimedate = "Today is " + current_day + " " + current_datetime.strftime("%B") + " " + current_datetime.strftime("%d") + " " + current_datetime.strftime("%Y") + " in the timezone of " + current_datetime.strftime("%Z")
 
-    #Get the start and end times for the query
-    start_time=""
-    end_time=""
+    # Initialize the start and end times as None
+    start_time = None
+    end_time = None
 
-    # Get the start and end times using the LLM
-    # openai_response_for_time = openai.ChatCompletion.create(
-    #     model="gpt-3.5-turbo",
-    #     messages=[
-    #         {"role": "system", "content": '''
-    #         You will be given a query from a user. You do not need to follow up with questions.
-    #         Extract the words that have to do with time. Use them to generate a start and end time.
-    #         Your response will be used to query the calendar for events within the time range.
-    #         You will be given the current date and time in the following format:
-    #         Today is {day of the week} {month} {day of the month} {year} in the timezone of {timezone}
+    # Use regular expressions to extract date-related words from the query text
+    pattern = r"(\d+:\d+|\d+ [ap]m|tomorrow|today|yesterday|(this|next|last) (\d+ )?\w+|\d+ days? ago|\d+ days? later|\d+ weeks? ago|\d+ weeks? later|\d+ months? ago|\d+ months? later|\d+ years? ago|\d+ years? later)"
+    matches = re.findall(pattern, query_text)
+    print(matches)
 
-    #         You will need to return a two strings following format: 
-    #         YYYY-MM-DDTHH:MM:SSZ, YYYY-MM-DDTHH:MM:SSZ
+    # Parse the date-related words into datetime objects and find the overall time range for the query
+    if matches:
+        for match in matches:
+            parsed_time = dateparser.parse(match[0], settings={'RELATIVE_BASE': current_datetime})
+            parsed_time = parsed_time.astimezone(current_datetime.tzinfo)
 
-    #         Please only return the start and end time in the format above. Don't ask subsequent questions.
-    #         You will be given the current date and time in the following format:
-    #         Today is {day of the week} {month} {day of the month} {year} in the timezone of {timezone}
-    #         '''},
-    #         {"role": "system", "content": realtimedate},
-    #         {"role": "user", "content": query_text}
-    #     ],
-    #     max_tokens=100
-    # )
-    # time_response = openai_response_for_time['choices'][0]['message']['content']
-    # print(time_response)
-    # start_time, end_time = extract_dates_from_llm_response(time_response)
-    
-    # Gather the events from the calendar within the time range using Calendar.get_events_in_date_range()
-    # Get the events from the calendar
-    # Gather the events from the calendar within the time range using Calendar.get_events_in_date_range()
-    # Get the events from the calendar
-    if start_time and end_time:
-        events = Calendar.get_events_in_date_range('token.json', start_time, end_time)
+            print("Found: %s, Parsed: %s" % (match[0], parsed_time))
+            #If a parse date is found and it is after the current date, set it as the end time and the start time as the current date
+            if parsed_time is not None and parsed_time > current_datetime:
+                end_time = parsed_time
+                start_time = current_datetime
+            #If a parse date is found and it is before the current date, set it as the start time and the end time as None
+            elif parsed_time is not None and parsed_time < current_datetime:
+                start_time = parsed_time
+                end_time = None
+
+
+        # Set the end time to the end of the day if it is found in the query
+        if end_time is not None:
+            end_time = datetime.combine(end_time.date(), time(hour=23, minute=59, second=59, microsecond=999999))
+
+    # Convert the start and end times to the UTC timezone and ISO format if they are not None
+     # Convert the start and end times to the UTC timezone and ISO format if they are not None
+    if start_time is not None and end_time is not None:
+        start_time = start_time.astimezone(tz.UTC).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        end_time = end_time.astimezone(tz.UTC).strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        print("Start time in UTC timezone:", start_time)
+        print("End time in UTC timezone:", end_time)
+    elif start_time is not None:
+        
+        end_time = None
+        print("Start time in UTC timezone:", start_time)
+        print("No end time found in the query.")
     else:
-        events = []
+        print("No time-related words found in the query.")
 
-    #Get the event ids from the events
-    event_ids = []
-    for event in events:
-        event_ids.append(event['id'])
-    
+
+    return start_time, end_time
+
+
+def process_semantic_search(query_text):
     #Process the query text for a semantic search. Returns a list of strings that will be used to query the vector store
     openai_response_for_vector_query = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -100,7 +104,7 @@ def process_query(query_text):
 
     #Query the vectorstore using the query text and functions from the Index class
     # Query the Pinecone base using the filtered event ids
-    id_score_list = Index.query_index(response_for_vector_query, event_ids=None)
+    id_score_list = Index.query_index(response_for_vector_query)
     ids = [t[0] for t in id_score_list]
 
     #Get the event details from the calendar using the ids from the query results
@@ -111,7 +115,15 @@ def process_query(query_text):
         events.append(Calendar.get_event_by_id(id, token_file_path))
     #Turn events into a long string
     events_string = " ".join([Index.parse_event(event) for event in events])
+    return events_string
 
+def generate_response(query_text, events_string):
+    #Get the local time information:
+    timezone = tz.tzlocal()
+    current_datetime = datetime.now(timezone)
+    current_day = current_datetime.strftime("%A")
+    realtimedate = "Today is " + current_day + " " + current_datetime.strftime("%B") + " " + current_datetime.strftime("%d") + " " + current_datetime.strftime("%Y") + " in the timezone of " + current_datetime.strftime("%Z")
+    
     #Create another openai object to respond to the user
     openai_response_for_event_details = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -121,11 +133,26 @@ def process_query(query_text):
         You will need to take the user query given below and respond with something relating to their events
         Remind users of the dates/times/locations of the relevant events to their query.
         '''},
+        {"role": "user", "content": realtimedate},
         {"role": "user", "content": events_string},
         {"role": "user", "content": query_text},
         ]
     )
     return (openai_response_for_event_details['choices'][0]['message']['content'])
+
+def process_query(query_text):
+    #Process Time:
+    start_time, end_time = process_time(query_text)
+    #Process Semantic Search
+    if(start_time==None and end_time==None):
+        events_string = process_semantic_search(query_text)
+    else:
+        events = Calendar.get_events_in_date_range('token.json', start_time, end_time)
+        events_string = " ".join([Index.parse_event(event) for event in events])
+    #Respond to the User
+    response = generate_response(query_text, events_string)
+    #Return the response:
+    return response
 
 def main():
     #Initilaize the index - this will add all the events on your calendar to the vector store.
@@ -141,6 +168,10 @@ def main():
 
         if query_text.lower() == 'exit':
             break
+
+        if query_text.lower() == 'refresh':
+            Index.init_index('token.json')
+            continue
 
         response = process_query(query_text)
 

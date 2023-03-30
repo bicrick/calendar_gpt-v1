@@ -174,7 +174,7 @@ class Calendar:
     
     @staticmethod
     #Get events within a date range
-    def get_events_in_date_range(token_file_path,start_date,end_date):
+    def get_events_in_date_range(token_file_path,start_date=None,end_date=None):
         creds = Credentials.from_authorized_user_file(token_file_path, SCOPES)
         service = build('calendar', 'v3', credentials=creds)
         # Convert the start_date and end_date to UTC format
